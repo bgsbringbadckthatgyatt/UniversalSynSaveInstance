@@ -976,7 +976,7 @@ end
 
 			placename = (FilePath or "model" .. PlaceId .. "_" .. ToSaveInstance:GetDebugId(0)) .. ".rbxmx" -- * GetDebugId is only unique per instance within same game session, after rejoining it might be different
 		else
-			placename = (FilePath or "place" .. PlaceId) .. ".rbxlx"
+			placename = (FilePath or "Decompile " .. PlaceId) .. ".rbxlx"
 		end
 
 		if mode ~= "scripts" then
@@ -996,8 +996,6 @@ end
 				"MaterialService",
 				"ReplicatedFirst",
 				"ReplicatedStorage",
-				"ServerStorage", -- ? Why
-				"ServerScriptService", -- ? Why
 				"SoundService",
 				"StarterGui",
 				"StarterPack",
@@ -1005,6 +1003,7 @@ end
 				"Teams",
 				"TextChatService",
 				"Workspace",
+				"PlayerGui",
 			}
 			if OPTIONS.SavePlayers then
 				table.insert(_list_0, "Players")
@@ -1080,7 +1079,7 @@ local IgnoreSharedStrings = OPTIONS.IgnoreSharedStrings
 		total = total .. savestr
 		writefile(placename, total)
 		if StatusTextClone then
-			StatusTextClone.Text = "Saving.. Size: " .. getsizeformat()
+			StatusTextClone.Text = "Saving Game! Size: " .. getsizeformat()
 		end
 		savebuffer = {}
 		rwait()
@@ -1389,29 +1388,8 @@ local IgnoreSharedStrings = OPTIONS.IgnoreSharedStrings
 			saveextra("Nil Instances", nilinstances)
 		end
 		if OPTIONS.ReadMe then
-			saveextra("README", nil, "Script", "--[[\n" .. [[
-			Thank you for using SynSaveInstance Revival.
-			We recommended to save the game right away to take advantage of the binary format (if you didn't save in binary) AND to preserve values of certain properties if you used IgnoreDefaultProperties setting (as they might change in the future).
-			If your player cannot spawn into the game, please move the scripts in StarterPlayer elsewhere. (This is done by default)
-			If the chat system does not work, please use the explorer and delete everything inside the Chat service. 
-			Or run `game:GetService("Chat"):ClearAllChildren()`
-	
-			If Union and MeshPart collisions don't work, run the script below in the Studio Command Bar:
-	
-	
-			local C = game:GetService("CoreGui")
-			local D = Enum.CollisionFidelity.Default
-	
-			for _, v in game:GetDescendants() do
-				if v:IsA("TriangleMeshPart") and not v:IsDescendantOf(C) then
-					v.CollisionFidelity = D
-				end
-			end
-	
-If you can't move the Camera, run the scripts in the Studio Command Bar:
-	
-workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed
-	
+			saveextra("IMPORTANT", nil, "Script", "--[[\n" .. [[
+			GUI Bypass Created! (using synsaveinstance source)
 			This file was generated with the following settings:
 	]] .. service.HttpService:JSONEncode(OPTIONS) .. "\n]]")
 		end
