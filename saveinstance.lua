@@ -989,21 +989,8 @@ end
 			tmp = TempRoot:GetChildren()
 		elseif mode == "optimized" then -- ! Incompatible with .rbxmx (Model file) mode
 			local _list_0 = {
-				"Chat",
-				"InsertService",
-				"JointsService",
 				"Lighting",
-				"MaterialService",
-				"ReplicatedFirst",
 				"ReplicatedStorage",
-				"SoundService",
-				"StarterGui",
-				"StarterPack",
-				"StarterPlayer",
-				"Teams",
-				"TextChatService",
-				"Workspace",
-				"PlayerGui",
 			}
 			if OPTIONS.SavePlayers then
 				table.insert(_list_0, "Players")
